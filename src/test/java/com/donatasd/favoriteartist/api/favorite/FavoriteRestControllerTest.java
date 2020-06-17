@@ -49,9 +49,6 @@ public class FavoriteRestControllerTest {
   }
 
   private CreateFavoriteDTO createFavoriteDTO() {
-    var createDTO = new CreateFavoriteDTO();
-    createDTO.setUserId(2L);
-    createDTO.setAmgArtistId(3492L);
-    return createDTO;
+    return new CreateFavoriteDTO(2L, 3492L);
   }
 }

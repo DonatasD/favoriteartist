@@ -1,0 +1,13 @@
+*Artists* endpoints /api/artists
+
+*Find By Term*
+
+.curl
+include::{snippets}/artists/findAllByTerm/curl-request.adoc[]
+
+.request
+include::{snippets}/artists/findAllByTerm/http-request.adoc[]
+
+.response
+include::{snippets}/artists/findAllByTerm/http-response.adoc[]
+

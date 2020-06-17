@@ -1,0 +1,23 @@
+*Favorites* endpoints /api/favorites
+
+*Create*
+
+.curl
+include::{snippets}/favorites/create/curl-request.adoc[]
+
+.request
+include::{snippets}/favorites/create/http-request.adoc[]
+
+.response
+include::{snippets}/favorites/create/http-response.adoc[]
+
+*Find by user*
+
+.curl
+include::{snippets}/favorites/findByUser/curl-request.adoc[]
+
+.request
+include::{snippets}/favorites/findByUser/http-request.adoc[]
+
+.response
+include::{snippets}/favorites/findByUser/http-response.adoc[]

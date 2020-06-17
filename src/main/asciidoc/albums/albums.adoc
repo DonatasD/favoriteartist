@@ -1,0 +1,12 @@
+*Albums* endpoints /api/albums
+
+*Find top 5*
+
+.curl
+include::{snippets}/albums/findTop5/curl-request.adoc[]
+
+.request
+include::{snippets}/albums/findTop5/http-request.adoc[]
+
+.response
+include::{snippets}/albums/findTop5/http-response.adoc[]

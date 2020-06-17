@@ -1,0 +1,8 @@
+Favorite Artist REST Docs
+
+include::favorites/favorites.adoc[]
+
+include::artists/artists.adoc[]
+
+include::albums/albums.adoc[]
+
