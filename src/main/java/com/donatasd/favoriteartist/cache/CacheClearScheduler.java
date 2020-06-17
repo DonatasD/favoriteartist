@@ -1,0 +1,26 @@
+package com.donatasd.favoriteartist.cache;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+/**
+ * Schedules cache clearing.
+ *
+ * @author Donatas Daubaras
+ */
+@Component
+public class CacheClearScheduler {
+
+  private CacheService cacheService;
+
+  public CacheClearScheduler(CacheService cacheService) {
+    this.cacheService = cacheService;
+  }
+
+  // TODO clear only needed caches
+  @Scheduled(fixedDelay = 60000)
+  public void scheduleAllCacheEviction() {
+    cacheService.clearAllCaches();
+  }
+
+}
