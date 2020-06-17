@@ -1,29 +1,31 @@
 package com.donatasd.favoriteartist.integration.itunes;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
+ * Integration test {@link ItunesClient}
+ *
  * @author Donatas Daubaras
  */
 @SpringBootTest
-class ItunesClientTest {
+public class ItunesClientTest {
 
   @Autowired
   private ItunesClient itunesClient;
 
   @Test
-  void successfullySearchesForArtists() {
+  void findArtists() {
     var result = itunesClient.findArtists("abba");
     assertTrue(result.isPresent());
   }
 
   @Test
-  void successfullyFindTop5Albums() {
-    var result = itunesClient.findAlbums("3492", 5);
+  void findAlbums() {
+    var result = itunesClient.findAlbums(3492L, 5);
     assertTrue(result.isPresent());
   }
 

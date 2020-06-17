@@ -51,7 +51,7 @@ public class ItunesClient {
   }
 
   public Optional<Response<Collection>> findAlbums(
-      @NonNull String amgArtistId,
+      @NonNull Long amgArtistId,
       @NonNull Integer limit
   ) {
     var url = String.format(
@@ -71,7 +71,7 @@ public class ItunesClient {
     return Optional.empty();
   }
 
-  public Optional<Response<Collection>> findAlbums(@NonNull String amgArtistId) {
+  public Optional<Response<Collection>> findAlbums(@NonNull Long amgArtistId) {
     return findAlbums(amgArtistId, 5);
   }
 
