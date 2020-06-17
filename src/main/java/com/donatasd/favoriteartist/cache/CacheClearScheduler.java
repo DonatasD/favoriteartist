@@ -13,8 +13,6 @@ public class CacheClearScheduler {
 
   private CacheService cacheService;
 
-  private final static Integer CACHE_CLEAR_TIME_MS = 1000 * 60 * 60 * 24;
-
   public CacheClearScheduler(CacheService cacheService) {
     this.cacheService = cacheService;
   }
@@ -22,7 +20,7 @@ public class CacheClearScheduler {
   /**
    * Schedule daily cache clearing
    */
-  @Scheduled(fixedDelay = CACHE_CLEAR_TIME_MS)
+  @Scheduled(fixedDelay = 1000 * 60 * 60 * 24)
   public void scheduleAllCacheEviction() {
     cacheService.clearAllCaches();
   }
