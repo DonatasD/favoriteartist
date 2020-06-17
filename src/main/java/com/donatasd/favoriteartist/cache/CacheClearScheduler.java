@@ -13,12 +13,16 @@ public class CacheClearScheduler {
 
   private CacheService cacheService;
 
+  private final static Integer CACHE_CLEAR_TIME_MS = 1000 * 60 * 60 * 24;
+
   public CacheClearScheduler(CacheService cacheService) {
     this.cacheService = cacheService;
   }
 
-  // TODO clear only needed caches
-  @Scheduled(fixedDelay = 60000)
+  /**
+   * Schedule daily cache clearing
+   */
+  @Scheduled(fixedDelay = CACHE_CLEAR_TIME_MS)
   public void scheduleAllCacheEviction() {
     cacheService.clearAllCaches();
   }

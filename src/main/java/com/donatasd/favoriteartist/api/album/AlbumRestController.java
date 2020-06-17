@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * RestController for albums
+ *
  * @author Donatas Daubaras
  */
 @RestController

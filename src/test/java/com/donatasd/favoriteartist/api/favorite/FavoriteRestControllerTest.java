@@ -21,6 +21,8 @@ public class FavoriteRestControllerTest {
 
   private static final String HOST = "http://localhost";
 
+  private static final Long USER_ID = 1L;
+
   @LocalServerPort
   private int port;
 
@@ -35,6 +37,15 @@ public class FavoriteRestControllerTest {
     assertEquals(result.getStatusCode(), HttpStatus.OK);
     assertNotNull(result.getBody());
     assertNotNull(result.getBody().getId());
+  }
+
+  @Test
+  public void findAll() {
+    var url = String.format("%s:%s/api/favorites?userId=%s", HOST, port, USER_ID);
+    var result = this.restTemplate.getForEntity(url, FavoriteDTO[].class);
+    assertEquals(result.getStatusCode(), HttpStatus.OK);
+    assertNotNull(result.getBody());
+    assertTrue(result.getBody().length > 0);
   }
 
   private CreateFavoriteDTO createFavoriteDTO() {

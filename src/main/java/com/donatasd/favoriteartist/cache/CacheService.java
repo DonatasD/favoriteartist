@@ -18,6 +18,9 @@ public class CacheService {
     this.cacheManager = cacheManager;
   }
 
+  /**
+   * Clear all caches
+   */
   public void clearAllCaches() {
     cacheManager.getCacheNames().forEach(name ->
         Objects.requireNonNull(cacheManager.getCache(name)).clear()
