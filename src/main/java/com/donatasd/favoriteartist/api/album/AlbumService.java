@@ -25,9 +25,7 @@ public class AlbumService {
 
   @Cacheable(value = "topAlbums")
   public List<Collection> findTopAlbums(Long amgArtistId, Integer limit) {
-    var collections = itunesClient.findAlbums(amgArtistId, limit)
-            .map(Response::getResults)
-            .orElse(List.of());
+    var collections = itunesClient.findAlbums(amgArtistId, limit);
     var result = collections.stream()
         .filter(collection -> collection.getWrapperType().equals(WrapperType.collection))
         .collect(Collectors.toList());

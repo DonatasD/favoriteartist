@@ -3,11 +3,9 @@ package com.donatasd.favoriteartist.api.album;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.donatasd.favoriteartist.integration.itunes.ItunesClient;
-import com.donatasd.favoriteartist.integration.itunes.domain.Response;
 import com.donatasd.favoriteartist.integration.itunes.domain.WrapperType;
 import com.donatasd.favoriteartist.integration.itunes.domain.collection.Collection;
-import com.donatasd.favoriteartist.integration.itunes.domain.collection.CollectionResponseWrapper;
-import java.util.Optional;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.Before;
@@ -38,7 +36,7 @@ public class AlbumServiceTest {
   public void setUp() {
     this.albumService = new AlbumService(itunesClient);
     Mockito.when(itunesClient.findAlbums(AMG_ARTIST_ID, LIMIT))
-        .thenReturn(createCollectionResponse());
+        .thenReturn(createCollectionsMock());
   }
 
   @Test
@@ -48,10 +46,8 @@ public class AlbumServiceTest {
   }
 
 
-  private Optional<Response<Collection>> createCollectionResponse() {
-    var response = new CollectionResponseWrapper();
-    response.setResultCount(Long.valueOf(LIMIT));
-    var collections = IntStream.range(0, LIMIT + 1)
+  private List<Collection> createCollectionsMock() {
+    return IntStream.range(0, LIMIT + 1)
         .mapToObj(i -> {
           /*
            * Mimic itunes api by generating artist entry as well. Allows testing filtering artist
@@ -67,7 +63,5 @@ public class AlbumServiceTest {
           return artist;
         })
         .collect(Collectors.toList());
-    response.setResults(collections);
-    return Optional.of(response);
   }
 }

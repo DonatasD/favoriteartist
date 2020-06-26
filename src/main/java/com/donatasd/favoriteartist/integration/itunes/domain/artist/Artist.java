@@ -22,4 +22,6 @@ public class Artist extends BaseResponseEntity {
   private String primaryGenreName;
 
   private Long primaryGenreId;
+
+  private Long amgArtistId;
 }

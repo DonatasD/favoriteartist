@@ -1,12 +1,12 @@
 package com.donatasd.favoriteartist.integration.itunes;
 
-import com.donatasd.favoriteartist.integration.itunes.domain.Response;
 import com.donatasd.favoriteartist.integration.itunes.domain.artist.Artist;
 import com.donatasd.favoriteartist.integration.itunes.domain.artist.ArtistResponseWrapper;
 import com.donatasd.favoriteartist.integration.itunes.domain.collection.Collection;
 import com.donatasd.favoriteartist.integration.itunes.domain.collection.CollectionResponseWrapper;
+import com.donatasd.favoriteartist.integration.itunes.exception.ITunesClientException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Optional;
+import java.util.List;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ public class ItunesClient {
     this.objectMapper = objectMapper;
   }
 
-  public Optional<Response<Artist>> findArtists(@NonNull String term) {
+  public List<Artist> findArtists(@NonNull String term) {
     var url = String.format(
         "%s/search?entity=allArtist&term=%s",
         HOST,
@@ -43,14 +43,14 @@ public class ItunesClient {
     try {
       var response = restTemplate.getForEntity(url, String.class);
       var result = objectMapper.readValue(response.getBody(), ArtistResponseWrapper.class);
-      return Optional.ofNullable(result);
+      return result.getResults();
     } catch (Exception e) {
       log.error("Failed to get result for artist search", e);
+      throw new ITunesClientException("Failed to get result for artist search");
     }
-    return Optional.empty();
   }
 
-  public Optional<Response<Collection>> findAlbums(
+  public List<Collection> findAlbums(
       @NonNull Long amgArtistId,
       @NonNull Integer limit
   ) {
@@ -64,15 +64,10 @@ public class ItunesClient {
     try {
       var response = restTemplate.getForEntity(url, String.class);
       var result = objectMapper.readValue(response.getBody(), CollectionResponseWrapper.class);
-      return Optional.of(result);
+      return result.getResults();
     } catch (Exception e) {
       log.error("Failed to get result for artist search", e);
+      throw new ITunesClientException("Failed to get result for artist search");
     }
-    return Optional.empty();
   }
-
-  public Optional<Response<Collection>> findAlbums(@NonNull Long amgArtistId) {
-    return findAlbums(amgArtistId, 5);
-  }
-
 }

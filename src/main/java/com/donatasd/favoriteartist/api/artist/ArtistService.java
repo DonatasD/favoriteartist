@@ -1,10 +1,10 @@
 package com.donatasd.favoriteartist.api.artist;
 
 import com.donatasd.favoriteartist.integration.itunes.ItunesClient;
-import com.donatasd.favoriteartist.integration.itunes.domain.Response;
 import com.donatasd.favoriteartist.integration.itunes.domain.WrapperType;
 import com.donatasd.favoriteartist.integration.itunes.domain.artist.Artist;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -25,10 +25,9 @@ public class ArtistService {
 
   @Cacheable(value = "artists")
   public List<Artist> findAllByTerm(String term) {
-    var artists = itunesClient.findArtists(term)
-        .map(Response::getResults)
-        .orElse(List.of());
-    var result = artists.stream()
+    var result = itunesClient.findArtists(term)
+        .stream()
+        .filter(artist -> Objects.nonNull(artist.getAmgArtistId()))
         .filter(artist -> artist.getWrapperType().equals(WrapperType.artist))
         .collect(Collectors.toList());
     log.debug("Found {} artists", result.size());

@@ -1,20 +1,17 @@
 package com.donatasd.favoriteartist.api.artist;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.donatasd.favoriteartist.integration.itunes.ItunesClient;
-import com.donatasd.favoriteartist.integration.itunes.domain.Response;
 import com.donatasd.favoriteartist.integration.itunes.domain.WrapperType;
 import com.donatasd.favoriteartist.integration.itunes.domain.artist.Artist;
-import com.donatasd.favoriteartist.integration.itunes.domain.artist.ArtistResponseWrapper;
 import java.util.List;
-import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit Test {@link ArtistService}
@@ -34,9 +31,8 @@ public class ArtistServiceTest {
   @Before
   public void setUp() {
     this.artistService = new ArtistService(itunesClient);
-    Mockito.when(itunesClient.findArtists(SEARCH_TERM)).thenReturn(createArtistResponse());
+    Mockito.when(itunesClient.findArtists(SEARCH_TERM)).thenReturn(createArtistsMock());
   }
-
 
   @Test
   public void findAllByTerm() {
@@ -44,12 +40,10 @@ public class ArtistServiceTest {
     assertEquals(1, result.size());
   }
 
-  private Optional<Response<Artist>> createArtistResponse() {
-    var response = new ArtistResponseWrapper();
-    response.setResultCount(1L);
+  private List<Artist> createArtistsMock() {
     var artist = new Artist();
     artist.setWrapperType(WrapperType.artist);
-    response.setResults(List.of(artist));
-    return Optional.of(response);
+    artist.setAmgArtistId(1L);
+    return List.of(artist);
   }
 }

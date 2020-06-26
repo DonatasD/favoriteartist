@@ -1,6 +1,6 @@
 package com.donatasd.favoriteartist.integration.itunes;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ public class ItunesClientTest {
   @Test
   void findArtists() {
     var result = itunesClient.findArtists("abba");
-    assertTrue(result.isPresent());
+    assertFalse(result.isEmpty());
   }
 
   @Test
   void findAlbums() {
     var result = itunesClient.findAlbums(3492L, 5);
-    assertTrue(result.isPresent());
+    assertFalse(result.isEmpty());
   }
 
 
